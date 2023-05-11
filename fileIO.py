@@ -138,7 +138,6 @@ def get_name(student):
 for student in sorted(students, key=get_name):
     print(f"{student['name']} is in {student['house']}")
 
-"""
 # Sorts a list of dictionaries using a lambda function
 
 students = []
@@ -150,3 +149,76 @@ with open("students0.csv") as file:
 
 for student in sorted(students, key=lambda student: student["name"]):
     print(f"{student['name']} is in {student['house']}")
+
+
+# Reads a CSV file using csv.reader
+
+import csv
+
+students = []
+
+with open("students1.csv") as file:
+    reader = csv.reader(file)
+    for row in reader:
+        students.append({"name": row[0], "home": row[1]})
+
+for student in sorted(students, key=lambda student: student["name"]):
+    print(f"{student['name']} is from {student['home']}")
+
+# Reads a CSV file using csv.DictReader
+
+import csv
+
+students = []
+
+with open("students2.csv") as file:
+    reader = csv.DictReader(file)
+    for row in reader:
+        students.append({"name": row["name"], "home": row["home"]})
+
+for student in sorted(students, key=lambda student: student["name"]):
+    print(f"{student['name']} is from {student['home']}")
+
+
+
+# Writes a CSV file using csv.writer
+
+import csv
+
+name = input("What's your name? ")
+home = input("Where's your home? ")
+
+with open("students3.csv", "a") as file:
+    writer = csv.writer(file)
+    writer.writerow([name, home])
+
+
+# Writes a CSV file using csv.DictWriter
+
+import csv
+
+name = input("What's your name? ")
+home = input("Where's your home? ")
+
+with open("students2.csv", "a") as file:
+    writer = csv.DictWriter(file, fieldnames=["name", "home"])
+    writer.writerow({"name": name, "home": home})
+
+"""
+# Opens and saves binary files
+
+import sys
+
+from PIL import Image
+
+images = []
+
+for arg in sys.argv[1:]:
+    image = Image.open(arg)
+    images.append(image)
+
+images[0].save(
+    "costumes.gif", save_all=True, append_images=[images[1]], duration=200, loop=0
+)
+
+# check this link: https://cs50.harvard.edu/python/2022/weeks/6/
